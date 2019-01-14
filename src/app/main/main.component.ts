@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CharacterClass, IntitiativeRecordClass} from '../../shared/models';
+import * as heroData from '../../data/superheroes.json'
 
 @Component({
   selector: 'app-main',
@@ -26,12 +27,15 @@ export class MainComponent implements OnInit {
 
   addBaseCharacters() {
     //add the basic characters for this game
-    let BaseCharactersList: CharacterClass[] = [
-      {Name: "Artimus", Speed: 2, Dex: 22},
-      {Name: "Molly", Speed: 3, Dex: 18},
-      {Name: "Apogee", Speed: 4, Dex: 20},
-      {Name: "Night Ape", Speed: 4, Dex: 17},
-      {Name: "Talmonis", Speed: 3, Dex: 10}]
+    // let BaseCharactersList: CharacterClass[] = [
+    //   {Name: "Artimus", Speed: 2, Dex: 22},
+    //   {Name: "Molly", Speed: 3, Dex: 18},
+    //   {Name: "Apogee", Speed: 4, Dex: 20},
+    //   {Name: "Night Ape", Speed: 4, Dex: 17},
+    //   {Name: "Talmonis", Speed: 3, Dex: 10}]
+
+      let BaseCharactersList: CharacterClass[] = heroData.default;
+
 
       this.CharacterList = BaseCharactersList;
 
@@ -142,6 +146,13 @@ export class MainComponent implements OnInit {
   }
 
   sortInitiativeList() {
+    
+    this.InitiativesList = this.InitiativesList.sort(function (a, b): any {
+      const initA = new Number(a["Dex"]);
+      const initB = new Number(b["Dex"]);
+      return initB > initA ? 1: initB < initA ? -1: 0;
+    });
+
     this.InitiativesList = this.InitiativesList.sort(function (a, b): any {
       const initA = new Number(a["Round"]);
       const initB = new Number(b["Round"]);
