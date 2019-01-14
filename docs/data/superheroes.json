@@ -1,0 +1,27 @@
+[
+    {
+        "Name": "Artimus", 
+        "Speed": 2, 
+        "Dex": 22
+    },
+    {
+        "Name": "Molly", 
+        "Speed": 3, 
+        "Dex": 18
+    },
+    {
+        "Name": "Apogee", 
+        "Speed": 4, 
+        "Dex": 20
+    },
+    {
+        "Name": "Night Ape", 
+        "Speed": 3, 
+        "Dex": 12
+    },
+    {
+        "Name": "Talmonis", 
+        "Speed": 3, 
+        "Dex": 10
+    }
+]
