@@ -32,11 +32,13 @@
           <td>Name:</td>
           <td>Speed:</td>
           <td>Dex:</td>
+          <td></td>
         </thead>
         <tr *ngFor="let Char of CharacterList">
           <td>{{ Char.Name }}</td>
           <td>{{ Char.Speed }}</td>
           <td>{{ Char.Dex }}</td>
+          <td><button (click)="RemoveCharacter(Char)">Remove</button></td>
         </tr>
       </table>
   </div>
