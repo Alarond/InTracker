@@ -31,36 +31,7 @@ export class MainComponent implements OnInit {
     //add the basic characters for this game
 
     //this.CharacterList = this.BaseCharactersList;
-
     this.CharacterList = this.NewSalemCharacters();
-
-    // this.CharacterList = [
-    //   {
-    //       Name: "Artimus", 
-    //       Speed: 2, 
-    //       Dex: 22
-    //   },
-    //   {
-    //       Name: "Molly", 
-    //       Speed: 3, 
-    //       Dex: 18
-    //   },
-    //   {
-    //       Name: "Apogee", 
-    //       Speed: 4, 
-    //       Dex: 20
-    //   },
-    //   {
-    //       Name: "Night Ape", 
-    //       Speed: 3, 
-    //       Dex: 12
-    //   },
-    //   {
-    //       Name: "Talmonis", 
-    //       Speed: 3, 
-    //       Dex: 10
-    //   }
-    // ]
  
   }
 
@@ -73,7 +44,7 @@ export class MainComponent implements OnInit {
 
   addAnotherCharacter() {
     //this function will be called to add aditional characters from the DOM
-    this.CharacterList.push({Name: this.Name, Speed: this.Speed, Dex: this.Dex});
+    this.CharacterList.push({Name: this.Name, Speed: Number(this.Speed), Dex: this.Dex});
   }
 
   getInitiativesFromSpeed(Speed: number, Dex: Number) {
@@ -88,6 +59,8 @@ export class MainComponent implements OnInit {
 
   getInitiatives() {
     //this.testResult = this.generateRandomNumber(6);
+
+    console.log(this.CharacterList);
 
     this.InitiativesList = [];
 
@@ -123,6 +96,10 @@ export class MainComponent implements OnInit {
   resetCharacterList() {
     this.CharacterList = [];
     this.addBaseCharacters();
+  }
+
+  clearInitiatives() {
+    this.InitiativesList = [];
   }
 
   //helper functions section
@@ -211,7 +188,7 @@ export class MainComponent implements OnInit {
       },
       {
           Name: "Night Ape", 
-          Speed: 3, 
+          Speed: 4, 
           Dex: 12
       },
       {
