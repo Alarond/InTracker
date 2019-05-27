@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CharacterClass, IntitiativeRecordClass} from '../../shared/models';
+import { CharacterClass, IntitiativeRecordClass } from '../../shared/models';
+import { TrackerService } from '../../shared/services/tracker.service';
+
 //import * as heroData from '../../data/superheroes.json'
 
 @Component({
@@ -20,10 +22,13 @@ export class MainComponent implements OnInit {
 
   //public testResult: number = 0;
 
-  constructor() { }
+  constructor(
+    private trackerService: TrackerService
+  ) { }
 
   ngOnInit() {
     this.addBaseCharacters();
+    this.GetAllCharacters();
   }
 
   addBaseCharacters() {
@@ -100,6 +105,14 @@ export class MainComponent implements OnInit {
 
   clearInitiatives() {
     this.InitiativesList = [];
+  }
+
+  //Database functions
+
+  private GetAllCharacters() {
+    this.trackerService.CharacterBusinessClass.GetMultipleAsObject().subscribe(
+      (data: CharacterClass[]) => { console.log(data) }
+    );
   }
 
   //helper functions section
