@@ -1,18 +1,21 @@
 <div class="container">
   <div class="row">
-    <button (click)="getInitiatives()">Generate Initiatives</button><button (click)="clearInitiatives()">Clear Initiatives</button><br />
+    <button class="btn btn-primary" (click)="getInitiatives()">Generate Initiatives</button>
+    &nbsp;&nbsp;
+    <button class="btn btn-primary" (click)="clearInitiatives()">Clear Initiatives</button>
   </div>
-  <div class="row">
-    <h2>Roled Initiatives</h2>
-  </div>
-  <div class="row">
+  <div class="well wl-lg">
+    <div class="row">
+      <h2>Roled Initiatives</h2>
+    </div>
+    <div class="row" style="background-color: silver">
       <table class="table table-striped table-bordered">
         <thead>
-          <td>Name:</td>
-          <td>Round:</td>
-          <td>Action #:</td>
-          <td>Dex:</td>
-          <td>Done:</td>
+        <td>Name:</td>
+        <td>Round:</td>
+        <td>Action #:</td>
+        <td>Dex:</td>
+        <td>Done:</td>
         </thead>
         <tr *ngFor="let Init of InitiativesList">
           <td>{{ Init.Name }}</td>
@@ -22,47 +25,33 @@
           <td><input class="form-control" type="checkbox" /></td>
         </tr>
       </table>
+    </div>
   </div>
   <div class="row">
     <h3>List of Loaded Users</h3>
+    <select class="form-control" [(ngModel)]="SelectedPartyID" (change)="GetSelectedParty()">
+      <option *ngFor="let Party of PartyList" [value]="Party.ID">{{Party.Party}}</option>
+    </select>
+  </div>
+  <div id="LoadedUsers" class="row">
+    <table class="table table-striped table-bordered">
+      <thead>
+      <td>Name:</td>
+      <td>Speed:</td>
+      <td>Dex:</td>
+      <td></td>
+      </thead>
+      <tr *ngFor="let Char of CharacterList">
+        <td>{{ Char.Name }}</td>
+        <td>{{ Char.Speed }}</td>
+        <td>{{ Char.Dex }}</td>
+        <td><button class="btn btn-primary" (click)="RemoveCharacter(Char)">Remove</button></td>
+      </tr>
+    </table>
   </div>
   <div class="row">
-      <table class="table table-striped table-bordered">
-        <thead>
-          <td>Name:</td>
-          <td>Speed:</td>
-          <td>Dex:</td>
-          <td></td>
-        </thead>
-        <tr *ngFor="let Char of CharacterList">
-          <td>{{ Char.Name }}</td>
-          <td>{{ Char.Speed }}</td>
-          <td>{{ Char.Dex }}</td>
-          <td><button (click)="RemoveCharacter(Char)">Remove</button></td>
-        </tr>
-      </table>
-  </div>
-  <div class="row">
-    <button (click)="resetCharacterList()">Reset Group</button>
-  </div>
-  <div class="row">
-    <h3>Add Another Character</h3>
-  </div>
-  <div class="form">
-      <div class="row">
-        <div class="form-col">
-            <label>Name: </label>
-            <input class="form-control" [(ngModel)]="Name" />
-        </div>
-        <div class="form-col">
-            <label> Speed: </label>
-            <input class="form-control" [(ngModel)]="Speed" />
-        </div>
-        <div class="form-col">
-            <label> Dex: </label>
-            <input class="form-control" [(ngModel)]="Dex" />
-        </div>
-      </div>
-      <div class="row"><button (click)="addAnotherCharacter()">Add Character to List</button> </div>
+    <button class="btn btn-primary" (click)="resetCharacterList()">Reset Group</button>
+    &nbsp;&nbsp;
+    <button class="btn btn-primary" (click)="addAnotherCharacter()">Add Character to List</button>
   </div>
 </div>
