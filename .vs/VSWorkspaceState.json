@@ -1,14 +1,14 @@
 {
   "ExpandedNodes": [
     "",
-    "\\node_modules",
     "\\src",
     "\\src\\app",
     "\\src\\app\\main",
-    "\\src\\environments",
     "\\src\\shared",
-    "\\src\\shared\\buisiness"
+    "\\src\\shared\\modals",
+    "\\src\\shared\\modals\\character-adder",
+    "\\src\\shared\\services"
   ],
-  "SelectedNode": "\\src\\app\\main\\main.component.ts",
+  "SelectedNode": "\\src\\shared\\services\\modal.service.ts",
   "PreviewInSolutionExplorer": false
 }
