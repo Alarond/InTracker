@@ -272,10 +272,10 @@ MIT
 @angular/platform-browser
 MIT
 
-@angular/router
+@angular/forms
 MIT
 
-@angular/forms
+@angular/router
 MIT
 
 core-js
