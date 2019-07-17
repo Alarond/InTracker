@@ -218,9 +218,9 @@ export class MainComponent implements OnInit {
           Dex: 22
       },
       {
-          Name: "Molly", 
+          Name: "Jenya", 
           Speed: 3, 
-          Dex: 18
+          Dex: 13
       },
       {
           Name: "Apogee", 
@@ -248,24 +248,24 @@ export class MainComponent implements OnInit {
         Dex: 10
       },
       {
-        Name: "Bill",
+        Name: "Marcus",
         Speed: 3,
         Dex: 18
       },
       {
-        Name: "Kat",
-        Speed: 4,
+        Name: "Vitus",
+        Speed: 3,
         Dex: 20
       },
       {
-        Name: "Barn",
-        Speed: 4,
+        Name: "Aria",
+        Speed: 3,
         Dex: 12
       },
       {
-        Name: "Amazon",
+        Name: "Stronai",
         Speed: 3,
-        Dex: 10
+        Dex: 12
       }
     ];
   }
@@ -282,4 +282,5 @@ export class MainComponent implements OnInit {
       }
     ];
   }
+
 }
