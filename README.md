@@ -1,5 +1,7 @@
 # InTracker
 
+This application is an RPG tool for tracking initiatives in Hero System. This is a custom initiative system that adds some randomness to the Hero system initiative system while maintaining the advantages for higher speed and dexterity. 
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.
 
 ## Development server

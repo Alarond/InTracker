@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CharacterClass, IntitiativeRecordClass} from '../../shared/models';
+import { CharacterClass, PartyClass, IntitiativeRecordClass } from '../../shared/models';
+import { TrackerService } from '../../shared/services/tracker.service';
+import { ModalService } from '../../shared/services/modal.service';
+
 //import * as heroData from '../../data/superheroes.json'
 
 @Component({
@@ -9,8 +12,9 @@ import { CharacterClass, IntitiativeRecordClass} from '../../shared/models';
 })
 export class MainComponent implements OnInit {
 
-  public CharacterList: CharacterClass[];  
-  //public BaseCharactersList: CharacterClass[] = heroData.default
+  public CharacterList: CharacterClass[];
+  public PartyList: PartyClass[];
+  public SelectedPartyID: number;
   public InitiativesList: IntitiativeRecordClass[] = [];
   
   //vars for adding new characters
@@ -20,19 +24,24 @@ export class MainComponent implements OnInit {
 
   //public testResult: number = 0;
 
-  constructor() { }
+  constructor(
+    private trackerService: TrackerService,
+    private modalService: ModalService,
+  ) { }
 
   ngOnInit() {
-    this.addBaseCharacters();
+    this.getPartyList();
+    //Set SelectedPartyID to 1 / first party in list
+    this.SelectedPartyID = 1;
+    this.GetCharacterListFromPartyID(this.SelectedPartyID);
+
+    //TODO: Initialize Data calls to API
+    //this.GetAllCharacters();
   }
 
-  addBaseCharacters() {
-    console.log("AddBaseFired");
-    //add the basic characters for this game
-
-    //this.CharacterList = this.BaseCharactersList;
-    this.CharacterList = this.NewSalemCharacters();
- 
+  getPartyList() {
+    //TODO: Get this list from api rather than object below
+    this.PartyList = this.ListOfParites();
   }
 
   RemoveCharacter(Char: CharacterClass) {
@@ -42,9 +51,25 @@ export class MainComponent implements OnInit {
     this.CharacterList.splice(index, 1);
   }
 
+  public GetSelectedParty() {
+    this.GetCharacterListFromPartyID(this.SelectedPartyID);
+  }
+
   addAnotherCharacter() {
-    //this function will be called to add aditional characters from the DOM
-    this.CharacterList.push({Name: this.Name, Speed: Number(this.Speed), Dex: this.Dex});
+
+    //this function is be called to add aditional characters from the DOM
+    this.modalService.ShowCharacterAdderPicker().subscribe((selectedCharacter: CharacterClass) => {
+
+      if (selectedCharacter) {
+
+        this.Name = selectedCharacter.Name;
+        this.Speed = selectedCharacter.Speed;
+        this.Dex = selectedCharacter.Dex;
+
+        this.CharacterList.push({ Name: this.Name, Speed: Number(this.Speed), Dex: this.Dex });
+      } 
+
+    });
   }
 
   getInitiativesFromSpeed(Speed: number, Dex: Number) {
@@ -59,8 +84,6 @@ export class MainComponent implements OnInit {
 
   getInitiatives() {
     //this.testResult = this.generateRandomNumber(6);
-
-    console.log(this.CharacterList);
 
     this.InitiativesList = [];
 
@@ -94,12 +117,29 @@ export class MainComponent implements OnInit {
   }
 
   resetCharacterList() {
-    this.CharacterList = [];
-    this.addBaseCharacters();
+    //this.CharacterList = [];
+    this.GetCharacterListFromPartyID(this.SelectedPartyID);
   }
 
   clearInitiatives() {
     this.InitiativesList = [];
+  }
+
+  GetCharacterListFromPartyID(PartyID: number) {
+    //TODO: replace this code with data from api
+    if (PartyID == 2) {
+      this.CharacterList = this.NatesRomanCharacters();
+    } else {
+      //for now we will default to New Salem Characters if nothing else found
+      this.CharacterList = this.NewSalemCharacters();
+    }
+  }
+  //Database functions
+
+  private GetAllCharacters() {
+    this.trackerService.CharacterBusinessClass.GetMultipleAsObject().subscribe(
+      (data: CharacterClass[]) => { console.log(data) }
+    );
   }
 
   //helper functions section
@@ -167,7 +207,8 @@ export class MainComponent implements OnInit {
     });
   }
 
-  //Arrays of Characters
+  //Arrays of DATA -  Characters, Parties etc
+  //TODO:  Replace these lists with data from Service
 
   public NewSalemCharacters() {
     return [
@@ -199,4 +240,46 @@ export class MainComponent implements OnInit {
     ];
   }
 
+  public NatesRomanCharacters() {
+    return [
+      {
+        Name: "Troya",
+        Speed: 2,
+        Dex: 10
+      },
+      {
+        Name: "Bill",
+        Speed: 3,
+        Dex: 18
+      },
+      {
+        Name: "Kat",
+        Speed: 4,
+        Dex: 20
+      },
+      {
+        Name: "Barn",
+        Speed: 4,
+        Dex: 12
+      },
+      {
+        Name: "Amazon",
+        Speed: 3,
+        Dex: 10
+      }
+    ];
+  }
+
+  public ListOfParites() {
+    return [
+      {
+        Party: "New Salem Characters",
+        ID: 1
+      },
+      {
+        Party: "Nates Roman Characters",
+        ID: 2
+      }
+    ];
+  }
 }
