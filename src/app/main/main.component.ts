@@ -250,22 +250,22 @@ export class MainComponent implements OnInit {
       {
         Name: "Marcus",
         Speed: 3,
-        Dex: 18
+        Dex: 13
       },
       {
-        Name: "Vitus",
+        Name: "Felix Vitus",
         Speed: 3,
-        Dex: 20
+        Dex: 14
       },
       {
         Name: "Aria",
         Speed: 3,
-        Dex: 12
+        Dex: 13
       },
       {
         Name: "Stronai",
         Speed: 3,
-        Dex: 12
+        Dex: 16
       }
     ];
   }
