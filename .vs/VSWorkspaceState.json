@@ -4,8 +4,8 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\main",
-    "\\src\\shared\\modals\\character-adder",
-    "\\src\\shared\\services"
+    "\\src\\shared",
+    "\\src\\shared\\buisiness"
   ],
   "SelectedNode": "\\src\\app\\main\\main.component.ts",
   "PreviewInSolutionExplorer": false

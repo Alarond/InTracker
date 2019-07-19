@@ -36,7 +36,7 @@ export class MainComponent implements OnInit {
     this.GetCharacterListFromPartyID(this.SelectedPartyID);
 
     //TODO: Initialize Data calls to API
-    //this.GetAllCharacters();
+    this.GetAllCharacters();
   }
 
   getPartyList() {
