@@ -48,7 +48,17 @@ export class MainComponent implements OnInit {
     let nameToRemove: string = Char.Name;
     let index: number = this.CharacterList.map(x => x.Name).indexOf(nameToRemove);
 
+    //Remove this Character from Character List
     this.CharacterList.splice(index, 1);
+
+    //here we remove the character from rolled Initiatives
+    for (let i = 0; i < this.InitiativesList.length; i++) {
+      if (i > -1) {
+        if (this.InitiativesList[i].Name === Char.Name) {
+          this.InitiativesList.splice(i, 1)
+        }
+      }
+    }
   }
 
   public GetSelectedParty() {
