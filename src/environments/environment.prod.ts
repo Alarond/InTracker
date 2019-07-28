@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  InTrackerAPIServiceURL: "http://localhost:4000/"
+  InTrackerAPIServiceURL: "https://intrackerapi.herokuapp.com/"
 };
