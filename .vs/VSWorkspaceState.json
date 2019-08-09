@@ -2,8 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\environments"
+    "\\src\\app",
+    "\\src\\app\\main",
+    "\\src\\shared\\modals\\character-selector",
+    "\\src\\shared\\services"
   ],
-  "SelectedNode": "\\src\\environments\\environment.prod.ts",
+  "SelectedNode": "\\src\\app\\main\\main.component.ts",
   "PreviewInSolutionExplorer": false
 }

@@ -1,4 +1,4 @@
-<div class="container" >
+<div class="container">
   <div class="row">
     <button class="btn btn-primary" (click)="getInitiatives()">Generate Initiatives</button>
     &nbsp;&nbsp;
@@ -28,9 +28,9 @@
     </div>
   </div>
   <div class="row">
-    <h3>List of Loaded Users</h3>
+    <h5>List of Loaded Users</h5>
     <select class="form-control" [(ngModel)]="SelectedPartyID" (change)="GetSelectedParty()">
-      <option *ngFor="let Party of PartyList" [value]="Party.ID">{{Party.Party}}</option>
+      <option *ngFor="let Party of PartyList" [value]="Party._id">{{Party.GroupName}}</option>
     </select>
   </div>
   <div id="LoadedUsers" class="row">
@@ -52,6 +52,14 @@
   <div class="row">
     <button class="btn btn-primary" (click)="resetCharacterList()">Reset Group</button>
     &nbsp;&nbsp;
-    <button class="btn btn-primary" (click)="addAnotherCharacter()">Add Character to List</button>
+    <button class="btn btn-primary" (click)="addAnotherCharacter()">Add New Character</button>
+    &nbsp;&nbsp;
+    <button class="btn btn-primary" (click)="addExistingCharacter()">Add Existing Character</button>
+  </div>
+  <div class="row">
+    <h5>Add Another Party: </h5>
+    <select class="form-control" [(ngModel)]="SelectedPartyIDToAdd" (change)="AddAnotherParty()">
+      <option *ngFor="let Party of PartyList" [value]="Party._id">{{Party.GroupName}}</option>
+    </select>
   </div>
 </div>

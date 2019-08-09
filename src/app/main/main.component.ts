@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CharacterClass, PartyClass, IntitiativeRecordClass } from '../../shared/models';
+import { CharacterClass, PartyClass, IntitiativeRecordClass, PartyMembersClass } from '../../shared/models';
 import { TrackerService } from '../../shared/services/tracker.service';
 import { ModalService } from '../../shared/services/modal.service';
 
@@ -14,7 +14,8 @@ export class MainComponent implements OnInit {
 
   public CharacterList: CharacterClass[];
   public PartyList: PartyClass[];
-  public SelectedPartyID: number;
+  public SelectedPartyID: string;
+  public SelectedPartyIDToAdd: string;
   public InitiativesList: IntitiativeRecordClass[] = [];
   
   //vars for adding new characters
@@ -22,26 +23,15 @@ export class MainComponent implements OnInit {
   public Speed: number = 2;
   public Dex: number = 10;
 
-  //public testResult: number = 0;
-
   constructor(
     private trackerService: TrackerService,
     private modalService: ModalService,
   ) { }
 
   ngOnInit() {
-    this.getPartyList();
-    //Set SelectedPartyID to 1 / first party in list
-    this.SelectedPartyID = 1;
-    this.GetCharacterListFromPartyID(this.SelectedPartyID);
 
-    //TODO: Initialize Data calls to API
-    this.GetAllCharacters();
-  }
+    this.GetListOfParties();
 
-  getPartyList() {
-    //TODO: Get this list from api rather than object below
-    this.PartyList = this.ListOfParites();
   }
 
   RemoveCharacter(Char: CharacterClass) {
@@ -62,7 +52,12 @@ export class MainComponent implements OnInit {
   }
 
   public GetSelectedParty() {
-    this.GetCharacterListFromPartyID(this.SelectedPartyID);
+    console.log(this.SelectedPartyID);
+    this.GetStringOfIDsFromSelectedParty(this.SelectedPartyID, false);
+  }
+
+  public AddAnotherParty() {
+    this.GetStringOfIDsFromSelectedParty(this.SelectedPartyIDToAdd, true);
   }
 
   addAnotherCharacter() {
@@ -72,14 +67,26 @@ export class MainComponent implements OnInit {
 
       if (selectedCharacter) {
 
-        this.Name = selectedCharacter.Name;
-        this.Speed = selectedCharacter.Speed;
-        this.Dex = selectedCharacter.Dex;
+        this.PushToCharacterList(selectedCharacter);
 
-        this.CharacterList.push({ Name: this.Name, Speed: Number(this.Speed), Dex: this.Dex });
       } 
 
     });
+  }
+
+  addExistingCharacter() {
+
+    //this function is be called to add aditional characters from the DOM
+    this.modalService.ShowCharacterSelectorPicker().subscribe((selectedCharacter: CharacterClass) => {
+
+      if (selectedCharacter) {
+
+          this.PushToCharacterList(selectedCharacter);
+
+      }
+
+    });
+
   }
 
   getInitiativesFromSpeed(Speed: number, Dex: Number) {
@@ -127,28 +134,74 @@ export class MainComponent implements OnInit {
   }
 
   resetCharacterList() {
-    //this.CharacterList = [];
-    this.GetCharacterListFromPartyID(this.SelectedPartyID);
+    this.CharacterList = [];
+    this.GetStringOfIDsFromSelectedParty(this.SelectedPartyID, false);
   }
 
   clearInitiatives() {
     this.InitiativesList = [];
   }
 
-  GetCharacterListFromPartyID(PartyID: number) {
-    //TODO: replace this code with data from api
-    if (PartyID == 2) {
-      this.CharacterList = this.NatesRomanCharacters();
-    } else {
-      //for now we will default to New Salem Characters if nothing else found
-      this.CharacterList = this.NewSalemCharacters();
-    }
-  }
   //Database functions
 
-  private GetAllCharacters() {
-    this.trackerService.CharacterBusinessClass.GetMultipleAsObject().subscribe(
-      (data: CharacterClass[]) => { console.log(data) }
+  private GetListOfParties() {
+    this.trackerService.PartyBusinessClass.GetMultipleAsObject().subscribe(
+      (data: PartyClass[]) => {
+        this.PartyList = data;
+        this.SelectedPartyID = this.PartyList[0]._id;
+        this.GetStringOfIDsFromSelectedParty(this.SelectedPartyID, false);
+      }
+    );
+  }
+
+  private GetStringOfIDsFromSelectedParty(groupID: string, addToExistingList: boolean) {
+
+    //this.StringOfIDs = "";
+    
+    let StringOfIDs: string = ""
+
+    this.trackerService.PartyBusinessClass.GetMultiplePartyMembersAsObject(groupID).subscribe(
+      (data: PartyMembersClass[]) => {
+
+        for (var i = 0; i < data.length; i++) {
+          if (i === 0) {
+            StringOfIDs = data[i].CharacterID;
+          } else {
+            StringOfIDs = StringOfIDs + ";" + data[i].CharacterID;;
+          }
+        }
+
+        if (StringOfIDs !== "") {
+          if (addToExistingList === true) {
+            this.GetCharactersToAddByStringOfIDs(StringOfIDs);
+          } else {
+            this.GetCharactersByStringOfIDs(StringOfIDs);
+          }
+        } 
+
+      }
+    );
+
+  }
+
+  private GetCharactersByStringOfIDs(StringOfIDs: string) {
+    this.trackerService.CharacterBusinessClass.GetMultibleAsObjectStringOfIDs(StringOfIDs).subscribe(
+      (data: CharacterClass[]) => {
+        this.CharacterList = data
+      }
+    );
+  }
+
+  private GetCharactersToAddByStringOfIDs(StringOfIDs: string) {
+    this.trackerService.CharacterBusinessClass.GetMultibleAsObjectStringOfIDs(StringOfIDs).subscribe(
+      (data: CharacterClass[]) => {
+        //TODO: need to loop through results and push them to CharacterList
+        for (var i = 0; i < data.length; i++) {
+
+          this.PushToCharacterList(data[i]);
+
+        }
+      }
     );
   }
 
@@ -202,6 +255,38 @@ export class MainComponent implements OnInit {
     return result;
   }
 
+  IsCharacterAlreadyInList(Name: string) {
+
+    for (let i = 0; i < this.CharacterList.length; i++) {
+      if (this.CharacterList[i].Name === Name) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  PushToCharacterList(CharacterToPush: CharacterClass) {
+
+    this.Name = CharacterToPush.Name;
+    this.Speed = CharacterToPush.Speed;
+    this.Dex = CharacterToPush.Dex;
+
+    let NameIsUnique: boolean = false
+    let nameIncrementor: number = 0;
+
+    while (NameIsUnique === false) {
+      if (this.IsCharacterAlreadyInList(this.Name) === false) {
+        this.CharacterList.push({ Name: this.Name, Speed: Number(this.Speed), Dex: this.Dex });
+        NameIsUnique = true;
+      } else {
+        nameIncrementor++;
+        this.Name = CharacterToPush.Name + nameIncrementor.toString();
+      }
+    }
+
+  }
+
   sortInitiativeList() {
     
     this.InitiativesList = this.InitiativesList.sort(function (a, b): any {
@@ -215,82 +300,6 @@ export class MainComponent implements OnInit {
       const initB = new Number(b["Round"]);
       return initB < initA ? 1: initB > initA ? -1: 0;
     });
-  }
-
-  //Arrays of DATA -  Characters, Parties etc
-  //TODO:  Replace these lists with data from Service
-
-  public NewSalemCharacters() {
-    return [
-      {
-          Name: "Artimus", 
-          Speed: 2, 
-          Dex: 22
-      },
-      {
-          Name: "Jenya", 
-          Speed: 3, 
-          Dex: 13
-      },
-      {
-          Name: "Apogee", 
-          Speed: 4, 
-          Dex: 20
-      },
-      {
-          Name: "Night Ape", 
-          Speed: 4, 
-          Dex: 12
-      },
-      {
-          Name: "Talmonis", 
-          Speed: 3, 
-          Dex: 10
-      }
-    ];
-  }
-
-  public NatesRomanCharacters() {
-    return [
-      {
-        Name: "Troya",
-        Speed: 2,
-        Dex: 10
-      },
-      {
-        Name: "Marcus",
-        Speed: 3,
-        Dex: 13
-      },
-      {
-        Name: "Felix Vitus",
-        Speed: 3,
-        Dex: 14
-      },
-      {
-        Name: "Aria",
-        Speed: 3,
-        Dex: 13
-      },
-      {
-        Name: "Stronai",
-        Speed: 3,
-        Dex: 16
-      }
-    ];
-  }
-
-  public ListOfParites() {
-    return [
-      {
-        Party: "New Salem Characters",
-        ID: 1
-      },
-      {
-        Party: "Nates Roman Characters",
-        ID: 2
-      }
-    ];
   }
 
 }
