@@ -16,16 +16,20 @@ export class CharacterBusinessClass {
     return this.http.get<CharacterClass[]>(this.WebServiceBaseURL + `api/character`)
   }
 
-  AddCharacter() {
-
+  GetMultibleAsObjectStringOfIDs(StringOfIDs: string): Observable<CharacterClass[]> {
+    return this.http.get<CharacterClass[]>(this.WebServiceBaseURL + `api/character/bycharacterids/${StringOfIDs}`)
   }
 
-  UpdateCharacter() {
-
+  AddCharacter(Item: CharacterClass) {
+    return this.http.post(this.WebServiceBaseURL + `api/character`, Item);
   }
 
-  DeleteCharacter() {
+  UpdateCharacter(Item: CharacterClass) {
+    return this.http.put(this.WebServiceBaseURL + `api/character`, Item);
+  }
 
+  DeleteCharacter(CharacterID: string) {
+    return this.http.delete(this.WebServiceBaseURL + `api/character/${CharacterID}`);
   }
 
 }

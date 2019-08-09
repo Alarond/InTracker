@@ -1,4 +1,4 @@
 export class PartyClass {
-  public Party: string;
-  public ID: number;
+  public _id: string;
+  public GroupName: string;
 }
