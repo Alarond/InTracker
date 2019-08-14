@@ -1,11 +1,8 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-</div>
 
-<router-outlet></router-outlet>
+<core-header applicationName="InTracker" [dataSource]="ItemList"></core-header>
+
+<router-outlet (activate)="OnActivate()"></router-outlet>
 
 <div class="Row" style="text-align:center">
   <footer>

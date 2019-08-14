@@ -1,0 +1,243 @@
+/* --------------------------
+ * NAVBAR OVERRIDES AND ADDITIONS
+ * --------------------------
+ */
+
+.navbar, .navbar-default, .navbar-inverse {
+  border: none;
+}
+
+.navbar-logo {
+  float: left;
+  /*height: $navbar-height;
+  padding: 10px $navbar-padding-horizontal;
+
+  @media (min-width: $grid-float-breakpoint) {
+    .navbar > .container &,
+    .navbar > .container-fluid & {
+      margin-left: -$navbar-padding-horizontal;
+    }
+  }*/
+}
+
+// text in navbar/headers should be pale blue, as defined in MLAF spec
+// https://wiki.ith.intel.com/display/itmaster/App+Headers
+.navbar-default .navbar-text {
+  color: #7ed3f7;
+}
+
+
+//
+// Navs overrides
+// --------------------------------------------------
+
+.nav > li > a.dropdown-toggle {
+  padding-right: 25px;
+}
+
+/* --------------------------
+ * NAV TABS ADDITIONS
+ * --------------------------
+ */
+
+.nav {
+
+  &.nav-tabs-intel {
+    border-bottom: 5px solid #0071c5;
+    padding-left: 10px;
+    margin-bottom: 20px;
+
+    li {
+      margin-bottom: 0px;
+
+      a {
+        border-color: #0071c5;
+        background-color: #0071c5;
+        color: #fff;
+        padding-left: 25px;
+        padding-right: 25px;
+        margin-right: 6px;
+        padding-bottom: 5px;
+        margin-top: 5px;
+
+        &:hover, &:focus, &:active {
+          background-color: #00aeef;
+          border-color: #00aeef;
+          color: #fff;
+        }
+
+        ;
+      }
+
+      &.active {
+        a {
+          border-color: #0071c5;
+          background-color: #fff;
+          font-weight: bold;
+          color: #111;
+          border-bottom-color: transparent;
+          padding-bottom: 10px;
+          margin-bottom: -5px;
+          margin-top: 5px;
+
+          &:hover {
+            color: #111;
+            border-color: #0071c5;
+            border-bottom-color: transparent;
+          }
+        }
+
+        li {
+          a {
+            font-weight: normal;
+          }
+        }
+      }
+      /* open menu on hover functionality */
+      &:hover {
+        .dropdown-menu-hover {
+          display: block;
+
+          li {
+
+            ul {
+              display: none;
+            }
+
+            &:hover {
+
+              ul {
+                display: block;
+              }
+            }
+          }
+        }
+      }
+      /* second, third, etc. level list styles */
+      ul {
+        padding: 0px;
+
+        li {
+
+          a {
+            border-color: transparent;
+            background-color: transparent;
+            color: #53565a;
+            margin-right: 0px;
+            padding: 5px 20px;
+            margin-top: 0px;
+
+            &:hover {
+              color: #fff;
+            }
+          }
+
+          ul {
+            position: absolute;
+            right: 0;
+          }
+        }
+      }
+    }
+  }
+
+  &.nav-tabs-intel-blocks {
+    background-color: #1891ee;
+    padding-left: 10px;
+    margin-bottom: 20px;
+    border-bottom-width: 0px;
+
+    li {
+      margin-bottom: 0px;
+
+      a {
+        border-color: transparent;
+        background-color: #1891ee;
+        border-right: 1px solid #0071c5;
+        color: #fff;
+        padding-left: 25px;
+        padding-right: 25px;
+        padding-bottom: 9px;
+        margin-right: 0px;
+        border-radius: 0;
+
+        &:hover, &:focus {
+          background-color: #00aeef;
+          border-right: 1px solid #0071c5;
+        }
+      }
+
+      &.active {
+        a {
+          font-weight: bold;
+          background-color: #fff;
+          color: #111;
+          border-color: transparent;
+
+          &:hover {
+            border-color: transparent;
+          }
+        }
+
+        li {
+          a {
+            font-weight: normal;
+          }
+        }
+      }
+      /* open menu on hover functionality */
+      &:hover {
+        .dropdown-menu-hover {
+          display: block;
+
+          li {
+
+            ul {
+              display: none;
+            }
+
+            &:hover {
+
+              ul {
+                display: block;
+              }
+            }
+          }
+        }
+      }
+      /* second, third, etc. level list styles */
+      ul {
+        padding: 0px;
+
+        li {
+
+          a {
+            border-color: transparent;
+            background-color: transparent;
+            color: #111;
+            margin-right: 0px;
+            padding: 5px 20px;
+            margin-top: 0px;
+
+            &:hover {
+              background-color: #7ed3f7;
+              color: #53565a;
+              border-color: transparent;
+            }
+
+            &:focus, &:active {
+              color: #111;
+              background-color: #00aeef;
+              border-color: transparent;
+            }
+          }
+
+          ul {
+            position: absolute;
+            right: 0;
+          }
+        }
+      }
+    }
+  }
+}

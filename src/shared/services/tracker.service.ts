@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { environment } from "../../environments/environment";
+import { environment } from "../../data/environments/environment";
 
 //import refferences to the business classes here
 import { CharacterBusinessClass } from "../buisiness/character.business";

@@ -2,11 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\app",
-    "\\src\\app\\main",
-    "\\src\\shared\\modals\\character-selector",
-    "\\src\\shared\\services"
+    "\\src\\modules",
+    "\\src\\modules\\core",
+    "\\src\\modules\\core\\header"
   ],
-  "SelectedNode": "\\src\\app\\main\\main.component.ts",
+  "SelectedNode": "\\src\\modules\\core\\header\\header.component.ts",
   "PreviewInSolutionExplorer": false
 }

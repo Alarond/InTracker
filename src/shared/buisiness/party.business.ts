@@ -19,14 +19,27 @@ export class PartyBusinessClass {
     return this.http.get<PartyClass[]>(this.WebServiceBaseURL + `api/group`)
   }
 
-  AddCharacter(Item: PartyClass) {
+  AddParty(Item: PartyClass) {
     return this.http.post(this.WebServiceBaseURL + `api/group`, Item);
+  }
+
+  DeleteParty(groupID: string) {
+    return this.http.delete(this.WebServiceBaseURL + `api/group/${groupID}`);
   }
 
   //This section is for teh Party Members list, Add, remove
 
-  GetMultiplePartyMembersAsObject(GroupID: string): Observable<PartyMembersClass[]> {
-    return this.http.get<PartyMembersClass[]>(this.WebServiceBaseURL + `api/partymember/bygroupid/${GroupID}`)
+  GetMultiplePartyMembersAsObject(groupID: string): Observable<PartyMembersClass[]> {
+    return this.http.get<PartyMembersClass[]>(this.WebServiceBaseURL + `api/bygroupid/${groupID}`)
+  }
+
+  AddPartyMember(Item: PartyMembersClass) {
+    // partymember
+    return this.http.post(this.WebServiceBaseURL + `api/partymember`, Item);
+  }
+
+  DeletePartyMember(partymemberID: string) {
+    return this.http.delete(this.WebServiceBaseURL + `api/partymember/${partymemberID}`);
   }
 
   //TODO:  Enable these Classes below in API Service
@@ -39,8 +52,5 @@ export class PartyBusinessClass {
   //  return this.http.delete(this.WebServiceBaseURL + `api/group/${GroupID}`);
   //}
 
-  //DeletePartyMember(PartymemberID: string) {
-  //  return this.http.delete(this.WebServiceBaseURL + `api/partymember/${PartymemberID}`);
-  //}
 
 }
