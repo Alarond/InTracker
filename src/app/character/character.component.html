@@ -18,9 +18,9 @@
         <td>Delete</td>
         </thead>
         <tr *ngFor="let Char of CharacterList">
-          <td><input [(value)]="Char.Name" class="character-name" /></td>
-          <td><input [(value)]="Char.Speed" class="mobile-small-input" /></td>
-          <td><input [(value)]="Char.Dex"  class="mobile-small-input" /></td>
+          <td><input [(ngModel)]="Char.Name" class="character-name" /></td>
+          <td><input [(ngModel)]="Char.Speed" class="mobile-small-input" /></td>
+          <td><input [(ngModel)]="Char.Dex"  class="mobile-small-input" /></td>
           <td><button id="deleteBtn" class="btn btn-primary" (click)="UpdateCharacter(Char)">Save</button></td>
           <td><button class="btn btn-primary" (click)="DeleteCharacter(Char)">Delete</button></td>
         </tr>

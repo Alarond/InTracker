@@ -2,10 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\modules",
-    "\\src\\modules\\core",
-    "\\src\\modules\\core\\header"
+    "\\src\\app",
+    "\\src\\app\\party",
+    "\\src\\shared",
+    "\\src\\shared\\modals",
+    "\\src\\shared\\modals\\character-adder"
   ],
-  "SelectedNode": "\\src\\modules\\core\\header\\header.component.ts",
+  "SelectedNode": "\\src\\app\\party\\party.component.html",
   "PreviewInSolutionExplorer": false
 }
