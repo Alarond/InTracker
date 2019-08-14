@@ -1,5 +1,4 @@
 
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand">{{ ApplicationName }}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -7,7 +6,7 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+    <ul class="nav navbar-nav mr-auto">
       <li *ngFor="let Item of ItemList" [ngClass]="{'dropdown': Item.ItemList}" class="nav-item">
         <a *ngIf="Item.ItemList === null && Item.DestinationURL" href="{{Item.DestinationURL}}" class="nav-link">{{Item.Title}}</a>
         <a *ngIf="Item.ItemList === null && Item.OnClick" href="javascript:void(0)" (click)="Item.OnClick(Item)" class="nav-link">{{Item.Title}}</a>
