@@ -1,0 +1,56 @@
+$break-medium: 760px;
+$break-small: 320px;
+
+.core-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-top: 0.25em;
+    padding-right: 0;
+    padding-bottom: 0.25em;
+    padding-left: 0;
+    border-top: 1px solid #939598;
+    color: #939598;
+    background-color: white;
+    z-index: 4;
+
+    .core-content {
+        overflow: hidden;
+        font-size: 12px;
+        padding-left: 7px;
+        padding-right: 7px;
+
+        .legal {
+            float: left;
+            text-align: left;
+
+            @media screen and (max-width: $break-medium) {
+                float: none;
+                text-align: left;
+            }
+        }
+
+        .classification {
+            position: fixed;
+            left: 50%;
+            text-align: left;
+
+            @media screen and (max-width: $break-medium) {
+                position: inherit;
+                left: 0;
+                text-align: left;
+            }
+        }
+
+        .build {
+            float: right;
+            text-align: right;
+
+            @media screen and (max-width: $break-medium) {
+                float: none;
+                text-align: left;
+            }
+        }
+    }
+}

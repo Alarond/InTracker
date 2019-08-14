@@ -44,6 +44,7 @@ export class CharacterSelectorModal implements OnInit {
       this.trackerService.CharacterBusinessClass.GetMultipleAsObject().subscribe(
         (data: CharacterClass[]) => {
           this.CharacterList = data;
+          this.CharacterList.sort((a, b) => a.Name.localeCompare(b.Name));
         }
       );
     }

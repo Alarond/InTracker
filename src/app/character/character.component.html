@@ -1,0 +1,30 @@
+<div class="container">
+  <div>
+    <h2>
+      Characters
+      <button title="Add" (click)="addNewCharacter()" class="btn btn-primary pull-right">
+        + New Hero
+      </button>
+    </h2>
+  </div>
+  <div class="row">
+    <div id="LoadedUsers" class="row">
+      <table class="table table-striped table-bordered">
+        <thead>
+        <td>Name:</td>
+        <td>Spd:</td>
+        <td>Dex:</td>
+        <td>Update</td>
+        <td>Delete</td>
+        </thead>
+        <tr *ngFor="let Char of CharacterList">
+          <td><input [(value)]="Char.Name" class="character-name" /></td>
+          <td><input [(value)]="Char.Speed" class="mobile-small-input" /></td>
+          <td><input [(value)]="Char.Dex"  class="mobile-small-input" /></td>
+          <td><button id="deleteBtn" class="btn btn-primary" (click)="UpdateCharacter(Char)">Save</button></td>
+          <td><button class="btn btn-primary" (click)="DeleteCharacter(Char)">Delete</button></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

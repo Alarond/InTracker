@@ -8,7 +8,7 @@ import { ModalService } from '../../shared/services/modal.service';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.sass']
+  styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
 
@@ -19,6 +19,7 @@ export class MainComponent implements OnInit {
   public InitiativesList: IntitiativeRecordClass[] = [];
   
   //vars for adding new characters
+  public _id: string = ""
   public Name: string = "";
   public Speed: number = 2;
   public Dex: number = 10;
@@ -277,7 +278,7 @@ export class MainComponent implements OnInit {
 
     while (NameIsUnique === false) {
       if (this.IsCharacterAlreadyInList(this.Name) === false) {
-        this.CharacterList.push({ Name: this.Name, Speed: Number(this.Speed), Dex: this.Dex });
+        this.CharacterList.push({ _id: this._id, Name: this.Name, Speed: Number(this.Speed), Dex: this.Dex });
         NameIsUnique = true;
       } else {
         nameIncrementor++;

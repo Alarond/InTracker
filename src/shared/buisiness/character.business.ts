@@ -25,7 +25,8 @@ export class CharacterBusinessClass {
   }
 
   UpdateCharacter(Item: CharacterClass) {
-    return this.http.put(this.WebServiceBaseURL + `api/character`, Item);
+    let CharacterID: string = Item._id;
+    return this.http.put(this.WebServiceBaseURL + `api/character/${CharacterID}`, Item);
   }
 
   DeleteCharacter(CharacterID: string) {
