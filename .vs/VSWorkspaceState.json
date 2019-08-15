@@ -1,13 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src",
-    "\\src\\app",
-    "\\src\\app\\party",
-    "\\src\\shared",
-    "\\src\\shared\\modals",
+    "\\src\\modules\\core",
     "\\src\\shared\\modals\\character-adder"
   ],
-  "SelectedNode": "\\src\\app\\party\\party.component.html",
+  "SelectedNode": "\\src",
   "PreviewInSolutionExplorer": false
 }
