@@ -1,9 +1,14 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src\\modules\\core",
-    "\\src\\shared\\modals\\character-adder"
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\main",
+    "\\src\\shared",
+    "\\src\\shared\\modals",
+    "\\src\\shared\\modals\\character-adder",
+    "\\src\\shared\\models"
   ],
-  "SelectedNode": "\\src",
+  "SelectedNode": "\\src\\app\\main\\main.component.scss",
   "PreviewInSolutionExplorer": false
 }

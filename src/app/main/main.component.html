@@ -20,14 +20,22 @@
         <td>Round:</td>
         <td>Action #:</td>
         <td>Dex:</td>
-        <td>Done:</td>
+        <td>Action:</td>
         </thead>
-        <tr *ngFor="let Init of InitiativesList">
+        <tr *ngFor="let Init of InitiativesList" >
           <td>{{ Init.Name }}</td>
           <td>{{ Init.Round }}</td>
           <td>{{ Init.ActionNumber }}</td>
           <td>{{ Init.Dex }}</td>
-          <td><input class="form-control" type="checkbox" /></td>
+          <td [ngClass]="{'green': Init.Action === 'Pending', 'yellow': Init.Action === 'Delayed'}">
+            <!--<input class="form-control" type="checkbox" />-->
+            <select id="ActionSelect" [(ngModel)]="Init.Action" (change)="setInitAction()" class="form-control">
+              <option *ngFor="let action of InitActions" [value]="action.Value">{{action.Text}}</option>
+              <!--<option [value]="Pending">Pending</option>
+              <option [value]="Completed">Completed</option>
+              <option [value]="Delayed">Delayed</option>-->
+            </select>
+          </td>
         </tr>
       </table>
     </div>
