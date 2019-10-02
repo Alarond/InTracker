@@ -118,6 +118,7 @@ export class MainComponent implements OnInit {
         nextInitiativeRecord = new IntitiativeRecordClass;
         nextInitiativeRecord.Name = chrName;
         nextInitiativeRecord.Dex = chrDex;
+        nextInitiativeRecord.Action = "Pending";
 
         if (i2 === 0) {
           nextInitiativeRecord.Round = firstInitiative;
@@ -141,6 +142,10 @@ export class MainComponent implements OnInit {
 
   clearInitiatives() {
     this.InitiativesList = [];
+  }
+
+  setInitAction() {
+    console.log(this.InitiativesList);
   }
 
   //Database functions
@@ -302,5 +307,20 @@ export class MainComponent implements OnInit {
       return initB < initA ? 1: initB > initA ? -1: 0;
     });
   }
+
+  public InitActions = [
+    {
+      Text: "Pending",
+      Value: "Pending"
+    },
+    {
+      Text: "Completd",
+      Value: "Completed"
+    },
+    {
+      Text: "Delayed",
+      Value: "Delayed"
+    }
+  ];
 
 }

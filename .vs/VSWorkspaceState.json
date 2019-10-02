@@ -3,11 +3,12 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\party",
+    "\\src\\app\\main",
     "\\src\\shared",
     "\\src\\shared\\modals",
-    "\\src\\shared\\modals\\character-adder"
+    "\\src\\shared\\modals\\character-adder",
+    "\\src\\shared\\models"
   ],
-  "SelectedNode": "\\src\\app\\party\\party.component.html",
+  "SelectedNode": "\\src\\app\\main\\main.component.scss",
   "PreviewInSolutionExplorer": false
 }
