@@ -21,30 +21,31 @@
         <td>Action #:</td>
         <td>Dex:</td>
         <td>Action:</td>
+        <td>Remove:</td>
         </thead>
-        <tr *ngFor="let Init of InitiativesList" >
+        <tr *ngFor="let Init of InitiativesList">
           <td>{{ Init.Name }}</td>
           <td>{{ Init.Round }}</td>
           <td>{{ Init.ActionNumber }}</td>
           <td>{{ Init.Dex }}</td>
           <td [ngClass]="{'green': Init.Action === 'Pending', 'yellow': Init.Action === 'Delayed'}">
-            <!--<input class="form-control" type="checkbox" />-->
-            <select id="ActionSelect" [(ngModel)]="Init.Action" (change)="setInitAction()" class="form-control">
+            <select id="ActionSelect" [(ngModel)]="Init.Action" class="form-control">
               <option *ngFor="let action of InitActions" [value]="action.Value">{{action.Text}}</option>
-              <!--<option [value]="Pending">Pending</option>
-              <option [value]="Completed">Completed</option>
-              <option [value]="Delayed">Delayed</option>-->
             </select>
           </td>
+          <td><button class="btn btn-primary" (click)="RemoveCharacterFromInitiativelist(Init)">Remove</button></td>
         </tr>
       </table>
     </div>
   </div>
   <div class="row">
-    <h5>List of Loaded Users</h5>
+    <h5>Currently Selected Party (Base)</h5>
     <select class="form-control" [(ngModel)]="SelectedPartyID" (change)="GetSelectedParty()">
       <option *ngFor="let Party of PartyList" [value]="Party._id">{{Party.GroupName}}</option>
     </select>
+  </div>
+  <div class="row">
+    <h5>List of Loaded Users</h5>
   </div>
   <div id="LoadedUsers" class="row">
     <table class="table table-striped table-bordered">
@@ -58,7 +59,7 @@
         <td>{{ Char.Name }}</td>
         <td>{{ Char.Speed }}</td>
         <td>{{ Char.Dex }}</td>
-        <td><button class="btn btn-primary" (click)="RemoveCharacter(Char)">Remove</button></td>
+        <td><button class="btn btn-primary" (click)="RemoveCharacterFromLoadedCharacters(Char)">Remove</button></td>
       </tr>
     </table>
   </div>
