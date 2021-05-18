@@ -27,7 +27,7 @@ export class PartyBusinessClass {
     return this.http.delete(this.WebServiceBaseURL + `api/group/${groupID}`);
   }
 
-  //This section is for teh Party Members list, Add, remove
+  //This section is for the Party Members list, Add, remove
 
   GetMultiplePartyMembersAsObject(groupID: string): Observable<PartyMembersClass[]> {
     return this.http.get<PartyMembersClass[]>(this.WebServiceBaseURL + `api/bygroupid/${groupID}`)

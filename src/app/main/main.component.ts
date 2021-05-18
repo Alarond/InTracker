@@ -35,8 +35,17 @@ export class MainComponent implements OnInit {
 
   }
 
-  RemoveCharacter(Char: CharacterClass) {
+  RemoveCharacterFromLoadedCharacters(Char: CharacterClass) {
     let nameToRemove: string = Char.Name;
+    this.RemoveCharacter(nameToRemove);
+  }
+
+  RemoveCharacterFromInitiativelist(Init: IntitiativeRecordClass) {
+    let nameToRemove: string = Init.Name;
+    this.RemoveCharacter(nameToRemove);
+  }
+
+  RemoveCharacter(nameToRemove: string) {
     let index: number = this.CharacterList.map(x => x.Name).indexOf(nameToRemove);
 
     //Remove this Character from Character List
@@ -45,7 +54,7 @@ export class MainComponent implements OnInit {
     //here we remove the character from rolled Initiatives
     for (let i = 0; i < this.InitiativesList.length; i++) {
       if (i > -1) {
-        if (this.InitiativesList[i].Name === Char.Name) {
+        if (this.InitiativesList[i].Name === nameToRemove) {
           this.InitiativesList.splice(i, 1)
         }
       }
@@ -53,7 +62,6 @@ export class MainComponent implements OnInit {
   }
 
   public GetSelectedParty() {
-    console.log(this.SelectedPartyID);
     this.GetStringOfIDsFromSelectedParty(this.SelectedPartyID, false);
   }
 
@@ -135,6 +143,37 @@ export class MainComponent implements OnInit {
     this.sortInitiativeList();
   }
 
+  addInitiatives(Char: CharacterClass) {
+    //this.testResult = this.generateRandomNumber(6);
+
+    let thisCharactersSpeed: number = Char.Speed;
+    let firstInitiative: number = this.generateRandomNumber(this.getRandomRootNumber(Char.Speed))
+    let interval: number = this.getIntervalNumber(Char.Speed);
+    let chrName: string = Char.Name;
+    let chrDex: number = Char.Dex;
+
+    for (let i2 = 0; i2 < thisCharactersSpeed; i2++) {
+
+      let nextInitiativeRecord: IntitiativeRecordClass;
+      nextInitiativeRecord = new IntitiativeRecordClass;
+      nextInitiativeRecord.Name = chrName;
+      nextInitiativeRecord.Dex = chrDex;
+      nextInitiativeRecord.Action = "Pending";
+
+      if (i2 === 0) {
+        nextInitiativeRecord.Round = firstInitiative;
+        nextInitiativeRecord.ActionNumber = i2 + 1;
+      } else {
+        nextInitiativeRecord.Round = firstInitiative + (interval * i2);
+        nextInitiativeRecord.ActionNumber = i2 + 1;
+      }
+
+      this.InitiativesList.push(nextInitiativeRecord);
+    }
+
+    this.sortInitiativeList();
+  }
+
   resetCharacterList() {
     this.CharacterList = [];
     this.GetStringOfIDsFromSelectedParty(this.SelectedPartyID, false);
@@ -142,10 +181,6 @@ export class MainComponent implements OnInit {
 
   clearInitiatives() {
     this.InitiativesList = [];
-  }
-
-  setInitAction() {
-    console.log(this.InitiativesList);
   }
 
   //Database functions
@@ -289,6 +324,11 @@ export class MainComponent implements OnInit {
         nameIncrementor++;
         this.Name = CharacterToPush.Name + nameIncrementor.toString();
       }
+    }
+
+    if (this.InitiativesList.length > 0) {
+      CharacterToPush.Name = this.Name;
+      this.addInitiatives(CharacterToPush);
     }
 
   }

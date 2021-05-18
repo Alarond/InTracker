@@ -19,6 +19,7 @@ export class PartyComponent implements OnInit {
   public PartyMembersList: PartyMembersClass[];
   public SelectedParty: PartyClass;
   public SelectedPartyID: string;
+  public SelectedPartyName: string;
   
   //vars for adding new characters
   public Name: string = "";
@@ -137,7 +138,14 @@ export class PartyComponent implements OnInit {
 
   SelectParty(Item: PartyClass) {
     this.SelectedPartyID = Item._id;
+    this.SelectedPartyName = Item.GroupName;
     this.GetStringOfIDsFromSelectedParty(Item._id);
+  }
+
+  cancelEditParty() {
+    this.SelectedPartyID = "";
+    this.SelectedPartyName = "";
+    this.CharacterList = null;
   }
 
   //helper functions section
