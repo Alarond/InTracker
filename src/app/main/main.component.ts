@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CharacterClass, PartyClass, IntitiativeRecordClass, PartyMembersClass } from '../../shared/models';
 import { TrackerService } from '../../shared/services/tracker.service';
 import { ModalService } from '../../shared/services/modal.service';
+import { Globals } from '../global';
 
 //import * as heroData from '../../data/superheroes.json'
 
@@ -27,7 +28,10 @@ export class MainComponent implements OnInit {
   constructor(
     private trackerService: TrackerService,
     private modalService: ModalService,
-  ) { }
+    private globals: Globals
+  ) {
+    this.InitiativesList = globals.initiativesList;
+  }
 
   ngOnInit() {
 
@@ -181,6 +185,7 @@ export class MainComponent implements OnInit {
 
   clearInitiatives() {
     this.InitiativesList = [];
+    this.globals.initiativesList = this.InitiativesList;
   }
 
   //Database functions
@@ -346,6 +351,8 @@ export class MainComponent implements OnInit {
       const initB = new Number(b["Round"]);
       return initB < initA ? 1: initB > initA ? -1: 0;
     });
+
+    this.globals.initiativesList = this.InitiativesList;
   }
 
   public InitActions = [

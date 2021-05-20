@@ -10,6 +10,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FormStyle } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
+import { Globals } from './global';
+
 //services
 import { TrackerService } from '../shared/services/tracker.service';
 import { ModalService } from "../shared/services/modal.service"; 
@@ -42,6 +44,7 @@ import { PartyComponent } from './party/party.component';
   providers: [
     TrackerService,
     ModalService,
+    Globals,
     UtilityService,
     {
       provide: LocationStrategy,
