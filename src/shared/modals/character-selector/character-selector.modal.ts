@@ -13,6 +13,7 @@ export class CharacterSelectorModal implements OnInit {
 
     public CurrentForm: FormGroup = null;
     private _NameCountrol: FormControl;
+    private _NumberToAddControl: FormControl;
 
     private Observer: Observer<CharacterClass>;
 
@@ -21,10 +22,12 @@ export class CharacterSelectorModal implements OnInit {
   constructor(private cd: ChangeDetectorRef, private trackerService: TrackerService) {
 
       this._NameCountrol = new FormControl(null);
+      this._NumberToAddControl = new FormControl(1, [Validators.required]);
       //this._NameCountrol = new FormControl(null, [Validators.required]);
 
       this.CurrentForm = new FormGroup({
-        NameCountrol: this._NameCountrol
+        NameCountrol: this._NameCountrol,
+        NoToAdd: this._NumberToAddControl
       });
 
     }
@@ -59,8 +62,12 @@ export class CharacterSelectorModal implements OnInit {
         if (this._NameCountrol.value === null) {
           return;
         }
+        if (this._NumberToAddControl.value === "") {
+          return;
+        }
 
         let SelectedItem: CharacterClass = this.CharacterList.find(x => x.Name === this._NameCountrol.value);
+        SelectedItem.NoToAdd = this._NumberToAddControl.value;
 
         if (this.Observer) {
           this.Observer.next(SelectedItem);

@@ -14,6 +14,7 @@ export class CharacterAdderModal implements OnInit {
     private _NameCountrol: FormControl;
     private _SpeedCountrol: FormControl;
     private _DexCountrol: FormControl;
+    private _NumberToAddControl: FormControl;
 
     private Observer: Observer<CharacterClass>;
 
@@ -24,11 +25,13 @@ export class CharacterAdderModal implements OnInit {
         this._NameCountrol = new FormControl(null, [Validators.required]);
         this._SpeedCountrol = new FormControl(null, [Validators.required]);
         this._DexCountrol = new FormControl(null, [Validators.required]);
+        this._NumberToAddControl = new FormControl(1, [Validators.required]);
 
         this.CurrentForm = new FormGroup({
           Name: this._NameCountrol,
           Speed: this._SpeedCountrol,
-          Dex: this._DexCountrol
+          Dex: this._DexCountrol,
+          NoToAdd: this._NumberToAddControl
         });
 
     }
@@ -58,10 +61,13 @@ export class CharacterAdderModal implements OnInit {
         if (this._DexCountrol.value === "") {
           return;
         }
+        if (this._NumberToAddControl.value === "") {
+          return;
+        }
 
       let SelectedItem: CharacterClass = this.CurrentForm.value; 
 
-        console.log(SelectedItem);
+        //console.log(SelectedItem);
 
         if (this.Observer) {
             this.Observer.next(SelectedItem);
