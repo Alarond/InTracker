@@ -24,6 +24,7 @@ export class MainComponent implements OnInit {
   public Name: string = "";
   public Speed: number = 2;
   public Dex: number = 10;
+  public noToAdd: number = 1;
 
   constructor(
     private trackerService: TrackerService,
@@ -76,7 +77,7 @@ export class MainComponent implements OnInit {
   addAnotherCharacter() {
 
     //this function is be called to add aditional characters from the DOM
-    this.modalService.ShowCharacterAdderPicker().subscribe((selectedCharacter: CharacterClass) => {
+  this.modalService.ShowCharacterAdderPicker().subscribe((selectedCharacter: CharacterClass) => {
 
       if (selectedCharacter) {
 
@@ -90,10 +91,9 @@ export class MainComponent implements OnInit {
   addExistingCharacter() {
 
     //this function is be called to add aditional characters from the DOM
-    this.modalService.ShowCharacterSelectorPicker().subscribe((selectedCharacter: CharacterClass) => {
+  this.modalService.ShowCharacterSelectorPicker().subscribe((selectedCharacter: CharacterClass) => {
 
       if (selectedCharacter) {
-
           this.PushToCharacterList(selectedCharacter);
 
       }
@@ -314,26 +314,34 @@ export class MainComponent implements OnInit {
 
   PushToCharacterList(CharacterToPush: CharacterClass) {
 
-    this.Name = CharacterToPush.Name;
-    this.Speed = CharacterToPush.Speed;
-    this.Dex = CharacterToPush.Dex;
+    var noToAdd = CharacterToPush.NoToAdd;
 
-    let NameIsUnique: boolean = false
-    let nameIncrementor: number = 0;
+    while (noToAdd > 0) {
 
-    while (NameIsUnique === false) {
-      if (this.IsCharacterAlreadyInList(this.Name) === false) {
-        this.CharacterList.push({ _id: this._id, Name: this.Name, Speed: Number(this.Speed), Dex: this.Dex });
-        NameIsUnique = true;
-      } else {
-        nameIncrementor++;
-        this.Name = CharacterToPush.Name + nameIncrementor.toString();
+      this.Name = CharacterToPush.Name;
+      this.Speed = CharacterToPush.Speed;
+      this.Dex = CharacterToPush.Dex;
+      this.noToAdd = CharacterToPush.NoToAdd;
+
+      let NameIsUnique: boolean = false
+      let nameIncrementor: number = 0;
+
+      while (NameIsUnique === false) {
+        if (this.IsCharacterAlreadyInList(this.Name) === false) {
+          this.CharacterList.push({ _id: this._id, Name: this.Name, Speed: Number(this.Speed), Dex: this.Dex, NoToAdd: this.noToAdd });
+          NameIsUnique = true;
+        } else {
+          nameIncrementor++;
+          this.Name = CharacterToPush.Name + nameIncrementor.toString();
+        }
       }
-    }
 
-    if (this.InitiativesList.length > 0) {
-      CharacterToPush.Name = this.Name;
-      this.addInitiatives(CharacterToPush);
+      if (this.InitiativesList.length > 0) {
+        CharacterToPush.Name = this.Name;
+        this.addInitiatives(CharacterToPush);
+      }
+
+      noToAdd = noToAdd - 1;
     }
 
   }
